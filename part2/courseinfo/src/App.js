@@ -2,9 +2,11 @@ const Header = ({ course }) => <h1>{course}</h1>
 
 const Total = ({ parts }) => {
   const exercises_array = parts.map(part => part.exercises)
-  let sum = 0
-  exercises_array.forEach(elem => sum+=elem)
-  
+  const sum =
+    exercises_array.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    )
+      
   return (
     <p><b>total of {sum} exercises</b></p>
   )
