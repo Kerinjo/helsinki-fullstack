@@ -21,4 +21,4 @@ const [first, second, ...rest] = arr
 /* individual items or even a subarray are easy to assign to variables
    with the usage of destructuring assignment */
    console.log(first, second)
-   console.log(rest)   
+   console.log(rest)

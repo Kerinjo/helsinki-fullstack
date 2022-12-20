@@ -35,4 +35,3 @@ const average = function(a, b) {
 }
 result = average(2, 5)
 console.log("average: " + result)
-
