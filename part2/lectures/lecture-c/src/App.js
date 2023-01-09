@@ -1,12 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Note from './components/Note'
 
 
-const App = (props) => {
+const App = () => {
 
-  const [notes, setNotes] = useState(props.notes)
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
+ 
+  // executed immediately after rendering
+  // by default, effects run after every completed render,
+  // but you can choose to fire it only when certain values have changed. 
+  useEffect(() => {
+    console.log('effect');
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }, [])
+ 
+  // the second parameter being [] makes the effect
+  // run only along the first render of the component
 
   const addNote = (event) => {
     event.preventDefault()
