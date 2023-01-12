@@ -5,21 +5,27 @@ import Filter from "./components/Filter";
 import Display from "./components/Display";
 
 const App = () => {
+
   const [ countries, setCountries ] = useState([])
-  const [ selectedCounties, setSelectedCountries] = useState([])
+  const [ selectedCountries, setSelectedCountries] = useState([])
 
   useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
         setCountries(response.data)
+        setSelectedCountries(response.data)
       })
   },[])
 
   return (
     <div>
-      <Filter countries={countries} />
-      <Display countries={countries} />
+      <Filter 
+        countries={countries} 
+        setSelectedCountries={setSelectedCountries}
+        selectedCounties={selectedCountries}
+      />
+      <Display selectedCountries={selectedCountries} />
     </div>
   );
 }
