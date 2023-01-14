@@ -1,5 +1,33 @@
+import { useState } from "react"
+
+const Country = ({ country, toggleView }) => {
+  // console.log(country.cca2)
+  return (
+    <li>
+      {country.name.common}
+      <button onClick={toggleView}>show</button>
+    </li>
+  )
+} 
 
 const Display = ({ selectedCountries }) => {
+
+  const [ countryToView, setCountry ] = useState('')
+  // could store boolean state??
+  // viewToggled
+  // ? return view : proceed with the rest of component body
+  const toggleCountryView = (country) => {
+    console.log('View of ' + country.name.common + ' needs to be toggled.')
+    setCountry(country)
+  }
+
+  if (countryToView !== ''){
+    return (
+      <div>
+        <h2>{countryToView.name.common}</h2>
+      </div>
+    )
+  }
 
   if (selectedCountries.length > 10 && selectedCountries.length < 250) {
     return (
@@ -29,7 +57,11 @@ const Display = ({ selectedCountries }) => {
   else {
     return (
       selectedCountries.map(country => 
-        <p key={country.cca2}>{country.name.common}</p>  
+        <Country
+          key={country.cca2}
+          country={country}
+          toggleView={() => toggleCountryView(country)}
+        />  
       )
     )      
   }
