@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import Filter from './components/Filter'
@@ -52,6 +53,18 @@ const App = () => {
     }
   }
 
+  const deleteEntry = (id) => {
+    const url = `http://localhost:3001/persons/${id}`
+    const person = persons.find(p => p.id === id) 
+    if (window.confirm(`Delete ${person.name}?`)) {
+      axios.
+        delete(url)
+        .then(response => {
+          setPersons(persons.filter(p => p.id !== id))
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -69,8 +82,11 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-
-      <Persons persons={persons} /> 
+      <ul>
+        {persons.map(person =>
+          <Persons key={person.id} person={person} deleteEntry={() => deleteEntry(person.id)} /> 
+        )}
+      </ul>
 
     </div>
   )
