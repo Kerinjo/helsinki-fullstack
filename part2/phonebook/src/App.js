@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import Filter from './components/Filter'
@@ -54,14 +53,13 @@ const App = () => {
   }
 
   const deleteEntry = (id) => {
-    const url = `http://localhost:3001/persons/${id}`
     const person = persons.find(p => p.id === id) 
     if (window.confirm(`Delete ${person.name}?`)) {
-      axios.
-        delete(url)
-        .then(response => {
+      personService.
+        deleteUser(id)
+        .then(
           setPersons(persons.filter(p => p.id !== id))
-        })
+        )
     }
   }
 
