@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import personService from './sevices/persons'
 
 
@@ -10,9 +11,9 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newPhoneNumber, setNewPhoneNumber] = useState('')
-  
   const [peopleList, setPeopleList] = useState([ ...persons ])
-  
+  const [notificationMessage, setNotificationMessage] = useState(null)
+
   useEffect(() => {
     personService
       .getAll()
@@ -44,8 +45,14 @@ const App = () => {
       personService
         .create(newPerson)
         .then(returnedPerson => {
+          setNotificationMessage(
+            `Added ${returnedPerson.name} to the phonebook.`
+          )
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
           setPersons(persons.concat(returnedPerson))
-          setPeopleList(peopleList.concat(returnedPerson))                      
+          setPeopleList(peopleList.concat(returnedPerson))
         })
       setNewName('')
       setNewPhoneNumber('')
@@ -66,6 +73,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={notificationMessage} />
 
       <Filter setPersons={setPersons} peopleList={peopleList} />
 
