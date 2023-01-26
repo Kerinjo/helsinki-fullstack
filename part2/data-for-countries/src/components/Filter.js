@@ -1,4 +1,4 @@
-const Filter = ({ countries, setSelectedCountries, selectedCountries }) => {
+const Filter = ({ countries, setSelectedCountries, setCountry }) => {
   
   const handleInputChange = (event) => {
     event.preventDefault()
@@ -10,6 +10,7 @@ const Filter = ({ countries, setSelectedCountries, selectedCountries }) => {
     ))
 
     setSelectedCountries(filtered_countries)
+    setCountry('')
   }
   
 

@@ -10,12 +10,7 @@ const Country = ({ country, toggleView }) => {
   )
 } 
 
-const Display = ({ selectedCountries }) => {
-
-  const [ countryToView, setCountry ] = useState('')
-  // could store boolean state??
-  // viewToggled
-  // ? return view : proceed with the rest of component body
+const Display = ({ selectedCountries, countryToView, setCountry }) => {
   const toggleCountryView = (country) => {
     console.log('View of ' + country.name.common + ' needs to be toggled.')
     setCountry(country)
@@ -47,7 +42,7 @@ const Display = ({ selectedCountries }) => {
         <h3>languages:</h3>
         <ul>
           {Object.values(languages).map(language =>
-            <li>{language}</li>
+            <li key={language}>{language}</li>
           )}
         </ul>
         <img src={flag} alt="flag"/>

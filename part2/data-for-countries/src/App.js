@@ -8,6 +8,8 @@ const App = () => {
 
   const [ countries, setCountries ] = useState([])
   const [ selectedCountries, setSelectedCountries] = useState([])
+  const [ countryToView, setCountryToView ] = useState('')
+
 
   useEffect(() => {
     axios
@@ -24,8 +26,13 @@ const App = () => {
         countries={countries} 
         setSelectedCountries={setSelectedCountries}
         selectedCounties={selectedCountries}
+        setCountry={setCountryToView}
       />
-      <Display selectedCountries={selectedCountries} />
+      <Display 
+        selectedCountries={selectedCountries}
+        countryToView={countryToView}
+        setCountry={setCountryToView}
+       />
     </div>
   );
 }
