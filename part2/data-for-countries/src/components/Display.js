@@ -12,7 +12,6 @@ const Country = ({ country, toggleView }) => {
 
 const Display = ({ selectedCountries, countryToView, setCountry }) => {
   const toggleCountryView = (country) => {
-    console.log('View of ' + country.name.common + ' needs to be toggled.')
     setCountry(country)
   }
 
@@ -20,6 +19,15 @@ const Display = ({ selectedCountries, countryToView, setCountry }) => {
     return (
       <div>
         <h2>{countryToView.name.common}</h2>
+        <p>capital {countryToView.capital}</p>
+        <p>area {countryToView.area}</p>
+        <h3>languages:</h3>
+        <ul>
+          {Object.values(countryToView.languages).map(language =>
+            <li key={language}>{language}</li>
+          )}
+        </ul>
+        <img src={countryToView.flags.png} alt="flag"></img>
       </div>
     )
   }
