@@ -1,4 +1,5 @@
-import { useState } from "react"
+import axios from "axios"
+import { useEffect } from "react"
 
 const Country = ({ country, toggleView }) => {
   // console.log(country.cca2)
@@ -14,6 +15,17 @@ const Display = ({ selectedCountries, countryToView, setCountry }) => {
   const toggleCountryView = (country) => {
     setCountry(country)
   }
+
+  const apiKey = process.env.REACT_APP_API_KEY
+  const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`
+
+  useEffect(() => {
+    axios
+      .get(apiUrl)
+      .then(response => {
+        console.log(response)
+      })
+  }, [apiUrl])
 
   if (countryToView !== ''){
     return (
