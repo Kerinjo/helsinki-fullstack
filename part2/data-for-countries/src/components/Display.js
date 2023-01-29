@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect } from "react"
+import { useState } from "react"
 
 const Country = ({ country, toggleView }) => {
   // console.log(country.cca2)
@@ -12,22 +12,27 @@ const Country = ({ country, toggleView }) => {
 } 
 
 const Display = ({ selectedCountries, countryToView, setCountry }) => {
+
+  const [weatherData, setWeatherData] = useState([]) 
+
   const toggleCountryView = (country) => {
     setCountry(country)
   }
 
-  const apiKey = process.env.REACT_APP_API_KEY
-  const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`
-
-  useEffect(() => {
-    axios
-      .get(apiUrl)
-      .then(response => {
-        console.log(response)
-      })
-  }, [apiUrl])
-
   if (countryToView !== ''){
+
+    const apiKey = process.env.REACT_APP_API_KEY
+    const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${countryToView.capital}&appid=${apiKey}`  
+    
+    let temp, wind
+    
+    axios.get(apiUrl)
+      .then(response => {
+        temp = response.data.main.temp
+        wind = response.data.wind.speed
+        console.log(`temp: ${temp}, wind: ${wind}`)
+      })
+
     return (
       <div>
         <h2>{countryToView.name.common}</h2>
@@ -40,6 +45,8 @@ const Display = ({ selectedCountries, countryToView, setCountry }) => {
           )}
         </ul>
         <img src={countryToView.flags.png} alt="flag"></img>
+        <p>temp: {temp}</p>
+        <p>wind: {wind}</p>
       </div>
     )
   }
