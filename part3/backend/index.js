@@ -1,3 +1,4 @@
+const e = require('express')
 const express = require('express')
 const app = express()
 
@@ -27,7 +28,18 @@ app.get('/api/notes', (request, response) => {
   response.json(notes)
 })
 
-const PORT = 3002
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const note = notes.find(note => note.id === id)
+
+  if (note) {
+    response.json(note)
+  } else {
+    response.status(404).end()
+  }
+})
+
+const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`)
 })
